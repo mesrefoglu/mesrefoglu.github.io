@@ -139,8 +139,8 @@ const DoublePendulum: React.FC = () => {
         rafId = requestAnimationFrame(step);
 
         const handleResize = () => {
-            L1 = Math.min(window.innerWidth, window.innerHeight) * 0.4;
-            L2 = L1;
+            L1 = Math.min(window.innerWidth, window.innerHeight) * 0.48;
+            L2 = L1 * 0.65;
             updateCanvasSize();
         };
 

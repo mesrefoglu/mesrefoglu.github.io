@@ -2,7 +2,7 @@ export default function Hero() {
     return (
         <section className="flex min-h-screen w-full flex-col items-center justify-center relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-center">
             <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl text-pendulum">
-                Mustafa “Liam” Mesrefoglu
+                Liam Mesrefoglu
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-gray-300 sm:text-2xl">Problem Solving Engineer</p>
             <div className="mt-10 flex flex-wrap justify-center gap-6">

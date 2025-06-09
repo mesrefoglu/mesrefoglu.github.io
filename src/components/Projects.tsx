@@ -9,29 +9,36 @@ type Project = {
 
 const projects: Project[] = [
     {
+        name: "Lipu Pona",
+        explanation: "Full-stack social media platform for Toki Pona enthusiasts.",
+        link: "https://lipupona.net",
+        logo: "/logos/lipupona.png",
+        stack: ["Python", "Django", "JavaScript", "React", "Node.js", "Chakra UI", "HTML", "REST APIs", "PostgreSQL"],
+    },
+    {
         name: "Spinometry",
-        explanation: "Android incremental/idle game.",
+        explanation: "An idle video game, currently published on Google Play with 10,000+ downloads.",
         link: "https://play.google.com/store/apps/details?id=com.qedized.spinometry",
         logo: "/logos/spinometry.png",
-        stack: ["Unity", "C#", "Android", "Google Play API"],
+        stack: ["Unity3D", "C#", "Android", "Google Play API"],
     },
     {
         name: "AI Motorcycle Recommender",
-        explanation: "A web app that recommends motorcycles based on user preferences.",
+        explanation: "A website that helps you choose your new motorcycle with the help of AI.",
         link: "https://mesrefoglu.github.io/motorcycle-ai/",
         logo: "/logos/motorcycle-ai.png",
-        stack: ["HTML", "TypeScript", "React", "Node.js", "Tailwind CSS"],
+        stack: ["TypeScript", "React", "Vite", "Node.js", "Tailwind CSS", "HTML", "OpenAI API"],
     },
     {
         name: "Weather Forecast App",
-        explanation: "A web app that provides weather forecasts for any location.",
+        explanation: "An open-source aesthetic forecast web application.",
         link: "https://mesrefoglu.github.io/weather-forecast-app/",
         logo: "/logos/weather.png",
-        stack: ["HTML", "JavaScript", "React", "Node.js", "Tailwind CSS", "OpenWeatherMap API"],
+        stack: ["JavaScript", "React", "Node.js", "TailwindCSS", "HTML", "OpenWeatherMap", "JSON"],
     },
     {
         name: "3D Ray Tracer",
-        explanation: "A 3D ray tracer that renders 3D scenes using pure C++.",
+        explanation: "A ray tracer that renders 3D scenes using pure C++.",
         link: "https://github.com/mesrefoglu/3DRayTracer",
         logo: "/logos/ray-tracer.png",
         stack: ["C++"],
@@ -45,7 +52,7 @@ const projects: Project[] = [
     },
     {
         name: "Crosshair Overlay",
-        explanation: "A very simple crosshair overlay application.",
+        explanation: "A very simple crosshair overlay application, mostly for my own use.",
         link: "https://github.com/mesrefoglu/Crosshair",
         logo: "/logos/crosshair.png",
         stack: ["Windows Forms", "C#"],

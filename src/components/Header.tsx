@@ -13,7 +13,7 @@ export default function Header() {
                 <a href="/avatar.jpg" target="_blank" className="h-12 w-12 overflow-hidden rounded-full">
                     <img src={avatar} alt="Avatar" className="h-full w-full object-cover" />
                 </a>
-                <span className="text-2xl font-semibold">Liam Mesrefoglu</span>
+                <span className="text-2xl font-semibold">Mustafa Mesrefoglu</span>
             </div>
 
             <div

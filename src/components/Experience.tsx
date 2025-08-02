@@ -7,6 +7,13 @@ type Experience = {
 };
 const data: Experience[] = [
     {
+        role: "Software Engineer",
+        company: "DoorDash",
+        period: "Aug 2025 — Present",
+        logo: "/logos/doordash.png",
+        bullets: ["Recently joined the DoorDash team as a Software Engineer."],
+    },
+    {
         role: "Founder/Game Developer",
         company: "Qedized Games",
         period: "Jan 2024 — Present",

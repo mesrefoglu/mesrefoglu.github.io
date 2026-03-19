@@ -38,8 +38,11 @@ const DoublePendulum: React.FC = () => {
         let a2_v = 0;
 
         const speedFactor = 10;
+        const FIXED_DT = 1 / 60;
+        const MAX_STEPS_PER_FRAME = 15;
 
         let lastTime = performance.now();
+        let accumulator = 0;
         let rafId: number;
 
         let color = 0;
@@ -56,32 +59,38 @@ const DoublePendulum: React.FC = () => {
 
         const step = () => {
             const now = performance.now();
-            const realDt = (now - lastTime) / 1000;
-            let dt = realDt;
+            let frameTime = (now - lastTime) / 1000;
             lastTime = now;
-            dt *= speedFactor;
+            if (frameTime > 0.25) frameTime = 0.25;
 
+            accumulator += frameTime * speedFactor;
+            let steps = 0;
             const sin = Math.sin;
             const cos = Math.cos;
 
-            const num1 = -g * (2 * m1 + m2) * sin(a1);
-            const num2 = -m2 * g * sin(a1 - 2 * a2);
-            const num3 = -2 * sin(a1 - a2) * m2 * (a2_v ** 2 * L2 + a1_v ** 2 * L1 * cos(a1 - a2));
-            const den1 = L1 * (2 * m1 + m2 - m2 * cos(2 * a1 - 2 * a2));
-            const a1_a = (num1 + num2 + num3) / den1;
+            while (accumulator >= FIXED_DT && steps < MAX_STEPS_PER_FRAME) {
+                const num1 = -g * (2 * m1 + m2) * sin(a1);
+                const num2 = -m2 * g * sin(a1 - 2 * a2);
+                const num3 = -2 * sin(a1 - a2) * m2 * (a2_v ** 2 * L2 + a1_v ** 2 * L1 * cos(a1 - a2));
+                const den1 = L1 * (2 * m1 + m2 - m2 * cos(2 * a1 - 2 * a2));
+                const a1_a = (num1 + num2 + num3) / den1;
 
-            const num4 = 2 * sin(a1 - a2);
-            const num5 = a1_v ** 2 * L1 * (m1 + m2);
-            const num6 = g * (m1 + m2) * cos(a1);
-            const num7 = a2_v ** 2 * L2 * m2 * cos(a1 - a2);
-            const den2 = L2 * (2 * m1 + m2 - m2 * cos(2 * a1 - 2 * a2));
-            const a2_a = (num4 * (num5 + num6 + num7)) / den2;
+                const num4 = 2 * sin(a1 - a2);
+                const num5 = a1_v ** 2 * L1 * (m1 + m2);
+                const num6 = g * (m1 + m2) * cos(a1);
+                const num7 = a2_v ** 2 * L2 * m2 * cos(a1 - a2);
+                const den2 = L2 * (2 * m1 + m2 - m2 * cos(2 * a1 - 2 * a2));
+                const a2_a = (num4 * (num5 + num6 + num7)) / den2;
 
-            a1_v += a1_a * dt;
-            a2_v += a2_a * dt;
+                a1_v += a1_a * FIXED_DT;
+                a2_v += a2_a * FIXED_DT;
+                a1 += a1_v * FIXED_DT;
+                a2 += a2_v * FIXED_DT;
 
-            a1 += a1_v * dt;
-            a2 += a2_v * dt;
+                accumulator -= FIXED_DT;
+                steps++;
+            }
+            if (accumulator > FIXED_DT * MAX_STEPS_PER_FRAME * 2) accumulator = FIXED_DT * MAX_STEPS_PER_FRAME * 2;
 
             const originX = rodsCanvas.width / (2 * DPR);
             const originY = (rodsCanvas.height / (2 * DPR)) * 0.4;

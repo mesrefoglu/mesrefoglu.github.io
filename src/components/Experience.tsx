@@ -11,7 +11,12 @@ const data: Experience[] = [
         company: "DoorDash",
         period: "Aug 2025 — Present",
         logo: "/logos/doordash.png",
-        bullets: ["Recently joined the DoorDash team as a Software Engineer."],
+        bullets: [
+            "Worked in migrating the codebases of three large companies into a single monolithic platform.",
+            "Architected core data structures for the unified codebase, improving scalability and long-term maintainability.",
+            "Leveraged AI across planning, development, and testing to speed up delivery and improve productivity.",
+            "Cut CI times by 40%, fixing timeout bottlenecks and unblocking engineers across the organization.",
+        ],
     },
     {
         role: "Founder/Game Developer",
@@ -20,7 +25,7 @@ const data: Experience[] = [
         logo: "/logos/qedized.png",
         bullets: [
             "Published an idle game (Spinometry) on Google Play Store with 10k+ downloads.",
-            "Currently developing a 2D roguelike game (A Universe Infinite) with procedural generation.",
+            "Currently developing a text-based MMORPG with player-driven economy (Aruvia).",
         ],
     },
     {

@@ -44,16 +44,20 @@ const DoublePendulum: React.FC = () => {
 
         let color = 0;
         let colorChange = 0.001;
+        const TRAIL_HOLD_MS = 5000;
+        const TRAIL_LIFETIME_MS = 30000;
 
         trailCtx.fillStyle = "#000";
         trailCtx.fillRect(0, 0, trailCanvas.width / DPR, trailCanvas.height / DPR);
 
         let prevX2: number | null = null;
         let prevY2: number | null = null;
+        const trailSegments: { x1: number; y1: number; x2: number; y2: number; createdAt: number; color: string }[] = [];
 
         const step = () => {
             const now = performance.now();
-            let dt = (now - lastTime) / 1000;
+            const realDt = (now - lastTime) / 1000;
+            let dt = realDt;
             lastTime = now;
             dt *= speedFactor;
 
@@ -98,17 +102,33 @@ const DoublePendulum: React.FC = () => {
             const rgb = `rgb(${rColor},${gColor},${bColor})`;
             document.documentElement.style.setProperty("--pendulum-color", rgb);
 
-            trailCtx.fillStyle = "rgba(0,0,0,0.01)";
+            trailCtx.fillStyle = "#000";
             trailCtx.fillRect(0, 0, trailCanvas.width / DPR, trailCanvas.height / DPR);
 
             if (prevX2 !== null && prevY2 !== null) {
-                trailCtx.strokeStyle = rgb;
-                trailCtx.lineWidth = 5;
+                trailSegments.push({ x1: prevX2, y1: prevY2, x2, y2, createdAt: now, color: rgb });
+            }
+
+            while (trailSegments.length && now - trailSegments[0].createdAt > TRAIL_LIFETIME_MS) {
+                trailSegments.shift();
+            }
+
+            trailCtx.lineWidth = 5;
+            for (const segment of trailSegments) {
+                const age = now - segment.createdAt;
+                const fadeTime = Math.max(0, age - TRAIL_HOLD_MS);
+                const fadeDuration = TRAIL_LIFETIME_MS - TRAIL_HOLD_MS;
+                const alpha = fadeDuration > 0 ? 1 - Math.min(1, fadeTime / fadeDuration) : 0;
+                if (alpha <= 0) continue;
+
+                trailCtx.globalAlpha = alpha;
+                trailCtx.strokeStyle = segment.color;
                 trailCtx.beginPath();
-                trailCtx.moveTo(prevX2, prevY2);
-                trailCtx.lineTo(x2, y2);
+                trailCtx.moveTo(segment.x1, segment.y1);
+                trailCtx.lineTo(segment.x2, segment.y2);
                 trailCtx.stroke();
             }
+            trailCtx.globalAlpha = 1;
             prevX2 = x2;
             prevY2 = y2;
 

@@ -9,6 +9,14 @@ type Project = {
 
 const projects: Project[] = [
     {
+        name: "Aruvia",
+        explanation:
+            "A real-time MMORPG with resource gathering, dungeons, and player-driven economy (currently in alpha testing).",
+        link: "https://aruviarpg.com",
+        logo: "/logos/aruvia.png",
+        stack: ["TypeScript", "NestJS", "Next.js", "React", "Prisma", "PostgreSQL", "WebSockets", "Tailwind CSS", "Docker", "JWT"],
+    },
+    {
         name: "Lipu Pona",
         explanation: "Full-stack social media platform for Toki Pona enthusiasts.",
         link: "https://lipupona.net",
